@@ -7,6 +7,7 @@ import com.example.payment_service.Service.RazorPayGateWay;
 import com.example.payment_service.Service.StripeGateWay;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
+import com.stripe.exception.StripeException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,8 +26,10 @@ public class PaymentController {
     }
     /* here we are not fetching the data that is already exists, so we are making post call using orderId */
     @PostMapping("/payments")
-    public String generatePaymentLink(@RequestBody GeneratePaymentLinkRequestDto generatePaymentLinkRequestDto) throws RazorpayException {
+    public String generatePaymentLink(@RequestBody GeneratePaymentLinkRequestDto generatePaymentLinkRequestDto) throws RazorpayException, StripeException {
 
-        return razorPayGateWay.generatePaymentLink(generatePaymentLinkRequestDto.getOrderId());
+        // return razorPayGateWay.generatePaymentLink(generatePaymentLinkRequestDto.getOrderId());
+
+        return stripeGateWay.generatePaymentLink(generatePaymentLinkRequestDto.getOrderId());
     }
 }
