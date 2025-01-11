@@ -3,6 +3,7 @@ package com.example.payment_service.Service;
 
 import com.example.payment_service.Config.RazorPayClient;
 import com.razorpay.PaymentLink;
+import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -10,10 +11,9 @@ import org.springframework.stereotype.Service;
 @Service("razorpay")
 public class RazorPayGateWay implements PaymentServices{
 
-   private RazorPayClient razorPayClient;
-
-   public RazorPayGateWay(RazorPayClient razorPayClient) {
-       this.razorPayClient = razorPayClient;
+   private RazorpayClient razorpayClient;
+   public RazorPayGateWay(RazorpayClient razorpayClient) {
+       this.razorpayClient = razorpayClient;
    }
 
     @Override
@@ -52,7 +52,7 @@ public class RazorPayGateWay implements PaymentServices{
         paymentLinkRequest.put("callback_url","https://www.scaler.com/");
         paymentLinkRequest.put("callback_method","get");
 
-        PaymentLink payment = razorPayClient.paymentLink.create(paymentLinkRequest);
+        PaymentLink payment = razorpayClient.paymentLink.create(paymentLinkRequest);
         return payment.toString();
     }
 }
